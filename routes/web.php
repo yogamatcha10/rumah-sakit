@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController; //untuk mendaftarkan routes masing-masing
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PositionController;
+use App\Models\Position;
+
+//untuk mendaftarkan routes masing-masing
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +34,7 @@ Route::middleware('auth')->group(
         Route::get('/', function () {
             return view('home', ['title' => 'Home']);
         })->name('home');
+
+        Route::resource('positions', PositionController::class);
     }
 );
