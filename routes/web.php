@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DepartementController;
 use App\Models\Position;
+use App\Models\User;
+use App\Models\Departement;
 
 //untuk mendaftarkan routes masing-masing
 
@@ -20,21 +24,30 @@ use App\Models\Position;
 
 //untuk mendaftarkan link website
 
-
 Route::get('register', [UserController::class, 'register'])->name('register');
-Route::post('register', [UserController::class, 'register_action'])->name('register.action');
+Route::post('register', [UserController::class, 'register_action'])->name(
+    'register.action'
+);
 Route::get('login', [UserController::class, 'login'])->name('login');
-Route::post('login', [UserController::class, 'login_action'])->name('login.action');
+Route::post('login', [UserController::class, 'login_action'])->name(
+    'login.action'
+);
 Route::get('password', [UserController::class, 'password'])->name('password');
-Route::post('password', [UserController::class, 'password_action'])->name('password.action');
+Route::post('password', [UserController::class, 'password_action'])->name(
+    'password.action'
+);
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(
-    function () {
-        Route::get('/', function () {
-            return view('home', ['title' => 'Home']);
-        })->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard', ['title' => 'Dashboard']);
+    })->name('dashboard');
 
-        Route::resource('positions', PositionController::class);
-    }
+    Route::resource('positions', PositionController::class);
+    Route::resource('departements', DepartementController::class);
+});
+Route::get('/report', 'ReportController@index');
+Route::post('/report/generate', 'ReportController@generate');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name(
+    'dashboard'
 );

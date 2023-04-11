@@ -7,12 +7,13 @@
 </div>
 @endif
 <div class="text-end mb-2">
-    <a class="btn btn-secondary" href="{{ route('positions.create') }}"> Add Position</a>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('positions.create') }}"> Add Position</a>
 </div>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col" class="text-center">No</th>
             <th scope="col">Nama</th>
             <th scope="col">Keterangan</th>
             <th scope="col">Alias</th>
@@ -20,18 +21,19 @@
         </tr>
     </thead>
     <tbody>
+    <?php $i = 1; ?>
         @foreach ($positions as $item)
         <tr>
-            <td>{{ $item->id }}</td>
+            <td class="text-center">{{ $i++ }}</td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->keterangan }}</td>
             <td>{{ $item->alias }}</td>
             <td>
                 <form action="{{ route('positions.destroy',$item->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('positions.edit',$item->id) }}">Edit</a>
+                    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('positions.edit',$item->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">Delete</button>
                 </form>
             </td>
         </tr>
