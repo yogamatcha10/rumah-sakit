@@ -8,6 +8,7 @@ use App\Http\Controllers\DepartementController;
 use App\Models\Position;
 use App\Models\User;
 use App\Models\Departement;
+use Dompdf\Dompdf;
 
 //untuk mendaftarkan routes masing-masing
 
@@ -46,8 +47,29 @@ Route::middleware('auth')->group(function () {
     Route::resource('positions', PositionController::class);
     Route::resource('departements', DepartementController::class);
 });
-Route::get('/report', 'ReportController@index');
-Route::post('/report/generate', 'ReportController@generate');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name(
-    'dashboard'
-);
+Route::get('report', function () {
+    $departements = App\Models\Departement::all();
+
+    return view('departements/report', compact('departements'));
+});
+Route::post('report/generate', function () {
+    $departements = App\Models\Departement::all();
+
+    $pdf = new Dompdf();
+    $pdf->loadHtml(view('departements/report', compact('departements')));
+    $pdf->setPaper('A4', 'landscape');
+    $pdf->render();
+
+    return $pdf->stream('departement_report.pdf');
+});
+
+Route::get('/', function () {
+    $totaldata = App\Models\User::count();
+    $totaldataposition = App\Models\Position::count();
+    $totaldatadepartement = App\Models\Departement::count();
+    return view(
+        'dashboard',
+        ['title' => 'Dashboard'],
+        compact('totaldata', 'totaldatadepartement', 'totaldataposition')
+    );
+});

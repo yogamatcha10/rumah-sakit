@@ -31,8 +31,13 @@
         </select>
     </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </div>
+        </div>
 
-        <button type="submit" class="btn btn-primary mt-3 ml-3">Submit</button>
+        
     </div>
 </form>
 @endsection

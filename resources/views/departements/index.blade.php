@@ -7,9 +7,12 @@
 </div>
 @endif
 
-<div class="text-end mb-2">
-<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-    <a class="btn btn-secondary" href="{{ route('departements.create') }}"> Add Departements</a>
+<div class="d-none d-sm-inline-block text-end mb-2">
+    <form action="/report/generate" method="POST">
+        @csrf
+        <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>
+        <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('departements.create') }}"><i class="fa-solid fa-plus text-white-50"></i> Add Departement</a>
+    </form>
 </div>
 <table class="table">
     <thead>
@@ -34,7 +37,7 @@
                     <a href="{{ route('departements.edit',$item->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                     @csrf
                     @method('DELETE')
-                    <a class="m-2" type="submit"><i class="fa-sharp fa-solid text-danger fa-trash"></i></a>
+                    <button class="btn m-2" onClick="confimDelete()" type="submit"><i class="fa-sharp fa-solid text-danger fa-trash"></i></button>
                 </form>
             </td>
         </tr>

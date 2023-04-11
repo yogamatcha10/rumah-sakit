@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use Dompdf\Dompdf;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -12,7 +12,7 @@ class ReportController extends Controller
     {
         $departements = Departement::all();
 
-        return view('report', compact('departements'));
+        return view('departements/report', compact('departements'));
     }
 
     public function generate(Request $request)
@@ -20,7 +20,7 @@ class ReportController extends Controller
         $departements = Departement::all();
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(view('report', compact('departements')));
+        $pdf->loadHtml(view('departements/report', compact('departements')));
         $pdf->setPaper('A4', 'landscape');
         $pdf->render();
 
