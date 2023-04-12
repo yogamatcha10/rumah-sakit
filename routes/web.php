@@ -37,6 +37,11 @@ Route::get('password', [UserController::class, 'password'])->name('password');
 Route::post('password', [UserController::class, 'password_action'])->name(
     'password.action'
 );
+Route::get('report', [ReportController::class, 'report'])->name('report');
+Route::post('generate', [ReportController::class, 'generate'])->name(
+    'generate'
+);
+
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/logout', [UserController::class, 'logout'])
     ->name('logout')

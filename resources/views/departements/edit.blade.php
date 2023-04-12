@@ -26,6 +26,7 @@
         <div class="form-group">
         <label for="manager_id"><strong>Manager:</strong></label>
         <select name="manager_id" class="form-control">
+        <option value="" disabled selected>Pilih</option>
             @foreach ($managers as $manager)
                 <option value="{{ $manager->id }}">{{ $manager->name }}</option>
             @endforeach

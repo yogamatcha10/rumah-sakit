@@ -15,4 +15,21 @@ class Departement extends Model
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
+    public function report()
+    {
+        $departements = App\Models\Departement::all();
+
+        return view('/departements/report', compact('departements'));
+    }
+    public function generate()
+    {
+        $departements = App\Models\Departement::all();
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(view('/departements/report', compact('departements')));
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+
+        return $pdf->stream('departement_report.pdf');
+    }
 }

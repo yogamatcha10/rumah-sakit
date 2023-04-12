@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function index()
+    public function report()
     {
         $departements = Departement::all();
 
-        return view('departements/report', compact('departements'));
+        return view('/departements/report', compact('departements'));
     }
 
     public function generate(Request $request)
@@ -20,7 +20,7 @@ class ReportController extends Controller
         $departements = Departement::all();
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(view('departements/report', compact('departements')));
+        $pdf->loadHtml(view('departements.report', compact('departements')));
         $pdf->setPaper('A4', 'landscape');
         $pdf->render();
 
