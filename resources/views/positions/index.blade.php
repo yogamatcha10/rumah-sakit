@@ -34,9 +34,10 @@
             <td>
                 <form action="{{ route('positions.destroy',$item->id) }}" method="Post">
                     <a href="{{ route('positions.edit',$item->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;
                     @csrf
                     @method('DELETE')
-                    <button class="btn m-2" onClick="confimDelete()" type="submit"><i class="fa-sharp fa-solid text-danger fa-trash"></i></button>
+                    <button class="btn" onClick="confimDelete()" type="submit"><i class="fa-sharp fa-solid text-danger fa-trash"></i></button>
                 </form>
             </td>
         </tr>

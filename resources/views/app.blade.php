@@ -56,19 +56,27 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Position</span></a>
             </li>
-			@if(auth()->user()->position == 0)
-			<li class="nav-item">
-                <a class="nav-link" href="{{ route('departements.index')}}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Departement</span></a>
-            </li>
-            @endif
+			@if(auth()->check() && auth()->user()->position == 0)
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('departements.index')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Departement</span></a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+@endif
+
+@if(auth()->check())
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Logout</span></a>
+    </li>
+@endif
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" href="" id="sidebarToggle"></button>
+            <div class="text-center d-none d-md-inline" action="{{route('logout')}}">
+                <button class="rounded-circle border-0" href="{{route('logout')}}" id="sidebarToggle"></button>
             </div>
         </ul>
         <!-- End of Sidebar -->
@@ -132,7 +140,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(auth()->check())
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hai, {{auth()->user()->name}}</span>
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

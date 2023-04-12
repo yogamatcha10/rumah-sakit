@@ -38,6 +38,9 @@ Route::post('password', [UserController::class, 'password_action'])->name(
     'password.action'
 );
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
+Route::post('/logout', [UserController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
