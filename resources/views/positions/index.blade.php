@@ -7,11 +7,11 @@
 </div>
 @endif
 <div class="d-none d-sm-inline-block text-end mb-2">
-    <form action="/report/generate" method="POST">
+    <!-- <form action="/report/generate" method="POST">
         @csrf
         <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>
-        <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('positions.create') }}"><i class="fa-solid fa-plus text-white-50"></i> Add Position</a>
-    </form>
+    </form> -->
+    <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('positions.create') }}"><i class="fa-solid fa-plus text-white-50"></i> Add Position</a>
 </div>
 <table class="table">
     <thead>

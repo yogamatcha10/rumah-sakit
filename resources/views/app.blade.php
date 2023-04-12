@@ -68,7 +68,7 @@
 @if(auth()->check())
     <li class="nav-item">
         <a class="nav-link" href="{{ route('logout')}}">
-            <i class="fas fa-fw fa-table"></i>
+        <i class="fa-solid fa-right-from-bracket fa-rotate-180"></i>
             <span>Logout</span></a>
     </li>
 @endif

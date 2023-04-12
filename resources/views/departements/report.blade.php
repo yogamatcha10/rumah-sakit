@@ -21,11 +21,16 @@
         th, td {
             border: 1px solid black;
             padding: 8px;
+            
         }
 
         th {
             background-color: #f2f2f2;
         }
+        td {
+            align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -43,7 +48,7 @@
         <tbody class="text-center text-justify" style="line-height: 1.9 em;">
         <?php $i = 1; ?>
         @foreach ($departements as $item)
-            <tr>
+            <tr class="text-center">
                 <td>{{ $i++ }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->location }}</td>
