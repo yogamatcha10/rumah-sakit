@@ -20,7 +20,7 @@
             <th scope="col" class="text-center">No</th>
             <th scope="col">Nama</th>
             <th scope="col">Lokasi</th>
-            <th scope="col">Manager ID</th>
+            <th scope="col">Manager</th>
             <th scope="col">Action</th>
         </tr>
     </thead>

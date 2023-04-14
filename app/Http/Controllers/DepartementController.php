@@ -34,15 +34,17 @@ class DepartementController extends Controller
             ->route('departements.index')
             ->with('success', 'Departement has been created successfully.');
     }
-    public function edit(Departement $departement)
+    public function edit($id)
     {
         $title = 'Edit Data Departement';
+        $departement = Departement::findOrFail($id);
         $managers = User::where('position', 'manager')->get();
         return view(
             'departements.edit',
             compact('departement', 'managers', 'title')
         );
     }
+
     public function update(Request $request, Departement $departement)
     {
         $request->validate([

@@ -20,7 +20,7 @@
 
         th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 2px;
             
         }
 
@@ -28,7 +28,7 @@
             background-color: #f2f2f2;
         }
         td {
-            align: center;
+            position: center;
         }
 
     </style>
@@ -42,7 +42,7 @@
             <th scope="col" class="text-center">No</th>
             <th scope="col">Nama</th>
             <th scope="col">Lokasi</th>
-            <th scope="col">Manager ID</th>
+            <th scope="col">Manager</th>
         </tr>
         </thead>
         <tbody class="text-center text-justify" style="line-height: 1.9 em;">
