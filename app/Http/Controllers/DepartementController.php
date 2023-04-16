@@ -12,7 +12,11 @@ class DepartementController extends Controller
     {
         $title = 'Data Departement';
         $departements = Departement::orderBy('id', 'asc')->paginate(5);
-        return view('departements.index', compact('departements', 'title'));
+        $managers = User::where('position', 'manager')->get();
+        return view(
+            'departements.index',
+            compact('departements', 'managers', 'title')
+        );
     }
     public function create()
     {

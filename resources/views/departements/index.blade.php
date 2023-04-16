@@ -31,7 +31,7 @@
             <td>{{ $i++ }}</td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->location }}</td>
-            <td>{{ $item->manager_id }}</td>
+            <td>{{ $item->manager->name }}</td>
             <td>
                 <form action="{{ route('departements.destroy',$item->id) }}" method="Post">
                     <a href="{{ route('departements.edit',$item->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
