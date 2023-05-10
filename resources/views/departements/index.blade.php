@@ -14,7 +14,8 @@
         <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('departements.create') }}"><i class="fa-solid fa-plus text-white-50"></i> Add Departement</a>
     </form>
 </div>
-<table class="table text-center">
+
+<table id="example" class="table table-striped text-center" style="width:100%">
     <thead>
         <tr>
             <th scope="col" class="text-center">No</th>
@@ -25,7 +26,7 @@
         </tr>
     </thead>
     <tbody class="text-center text-justify" style="line-height: 1.9 em;">
-    <?php $i = 1; ?>
+        <?php $i = 1; ?>
         @foreach ($departements as $item)
         <tr>
             <td>{{ $i++ }}</td>
@@ -45,4 +46,11 @@
         @endforeach
     </tbody>
 </table>
+@endsection
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
 @endsection

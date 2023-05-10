@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('positions', PositionController::class);
     Route::resource('departements', DepartementController::class);
+    Route::get('departement/exportPdf', [DepartementController::class, 'exportPdf'])->name('exportPdf');
 });
 Route::get('report', function () {
     $departements = App\Models\Departement::all();

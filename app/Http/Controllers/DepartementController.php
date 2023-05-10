@@ -11,7 +11,7 @@ class DepartementController extends Controller
     public function index()
     {
         $title = 'Data Departement';
-        $departements = Departement::orderBy('id', 'asc')->paginate(5);
+        $departements = Departement::orderBy('id', 'asc')->get();
         $managers = User::where('position', 'manager')->get();
         return view(
             'departements.index',
@@ -68,5 +68,15 @@ class DepartementController extends Controller
         return redirect()
             ->route('departements.index')
             ->with('success', 'Departement has been deleted successfully');
+    }
+    public function exportPdf()
+    {
+        $title = 'Laporan Data Departement';
+        $departements = Departement::orderBy('id', 'asc')->get();
+        $managers = User::where('position', 'manager')->get();
+        return view(
+            'departements.pdf',
+            compact('departements', 'managers', 'title')
+        );
     }
 }
