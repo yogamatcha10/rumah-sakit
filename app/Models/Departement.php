@@ -32,4 +32,8 @@ class Departement extends Model
 
         return $pdf->stream('departement_report.pdf');
     }
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

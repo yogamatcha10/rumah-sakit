@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\UserDController;
 use App\Models\Position;
 use App\Models\User;
 use App\Models\Departement;
@@ -53,8 +54,17 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::resource('positions', PositionController::class);
+    Route::resource('users', UserDController::class);
     Route::resource('departements', DepartementController::class);
-    Route::get('departement/exportPdf', [DepartementController::class, 'exportPdf'])->name('exportPdf');
+    Route::get('departement/exportPdf', [
+        DepartementController::class,
+        'exportPdf',
+    ])->name('exportPdf');
+    //Route::get('/pegawai', 'PegawaiController@index');
+    // Route::get('/departement/cetak_pdf', [
+    //     DepartementController::class,
+    //     'exportPdf',
+    // ])->name('exportPdf');
 });
 Route::get('report', function () {
     $departements = App\Models\Departement::all();

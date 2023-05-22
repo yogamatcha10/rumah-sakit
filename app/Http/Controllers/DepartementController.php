@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departement;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PDF;
 
 class DepartementController extends Controller
 {
@@ -15,7 +16,7 @@ class DepartementController extends Controller
         $managers = User::where('position', 'manager')->get();
         return view(
             'departements.index',
-            compact('departements', 'managers', 'title')
+            compact('title', 'departements', 'managers')
         );
     }
     public function create()
@@ -69,14 +70,28 @@ class DepartementController extends Controller
             ->route('departements.index')
             ->with('success', 'Departement has been deleted successfully');
     }
+    // public function exportPdf()
+    // {
+    //     $title = 'Laporan Data Departement';
+    //     $departements = Departement::orderBy('id', 'asc')->get();
+    //     $managers = User::where('position', 'manager')->get();
+    //     return view(
+    //         'departements.pdf',
+    //         compact('departements', 'managers', 'title')
+    //     );
+    // }
     public function exportPdf()
     {
+        set_time_limit(120);
         $title = 'Laporan Data Departement';
-        $departements = Departement::orderBy('id', 'asc')->get();
+        $data = Departement::orderBy('id', 'asc')->get();
         $managers = User::where('position', 'manager')->get();
-        return view(
-            'departements.pdf',
-            compact('departements', 'managers', 'title')
-        );
+        $pdf = PDF::loadview('departements.pdf', [
+            'title' => $title,
+            'data' => $data,
+            'departements' => $data,
+            'managers' => $managers
+        ]);
+        return $pdf->stream('laporan departement');
     }
 }

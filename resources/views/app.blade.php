@@ -60,6 +60,12 @@
             </li>
             @if(auth()->check() && auth()->user()->position == 0)
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>User</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('departements.index')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Departement</span></a>
