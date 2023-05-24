@@ -60,6 +60,10 @@ Route::middleware('auth')->group(function () {
         DepartementController::class,
         'exportPdf',
     ])->name('exportPdf');
+    Route::get('position/export-excel', [
+        PositionController::class,
+        'exportExcel',
+    ])->name('positions.exportExcel');
     //Route::get('/pegawai', 'PegawaiController@index');
     // Route::get('/departement/cetak_pdf', [
     //     DepartementController::class,

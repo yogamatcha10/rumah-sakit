@@ -11,20 +11,37 @@ use PDF;
 class UserDController extends Controller
 {
     public function index()
-{
-    $title = 'Data User';
-    $positions = Position::all();
-    $departements = Departement::all();
-    $users = User::with('position', 'departement')->get();
-    return view('users.index', compact('users', 'positions', 'departements', 'title'));
-}
+    {
+        $title = 'Data User';
+        $users = User::orderBy('id', 'asc')->get();
+
+        // foreach ($users as $user) {
+        //     echo 'Nama Pengguna: ' . $user->nama . PHP_EOL;
+
+        //     if ($user->positions) {
+        //         echo 'Posisi: ' . $user->positions->nama . PHP_EOL;
+        //     } else {
+        //         echo 'Posisi: Tidak ada posisi terkait.' . PHP_EOL;
+        //     }
+
+        //     if ($user->departments) {
+        //         echo 'Departemen: ' . $user->departments->nama . PHP_EOL;
+        //     } else {
+        //         echo 'Departemen: Tidak ada departemen terkait.' . PHP_EOL;
+        //     }
+
+        //     echo '==========================' . PHP_EOL;
+        // }
+
+        return view('users.index', compact('users', 'title'));
+    }
 
     public function create()
     {
         $title = 'Add Data User';
         $positions = Position::get();
         $departements = Departement::get();
-        return view('users.create', compact('positions','departements', 'title'));
+        return view('users.create', compact('positions', 'departements', 'title'));
     }
     public function store(Request $request)
     {
@@ -49,7 +66,7 @@ class UserDController extends Controller
         $positions = Position::get();
         $departements = Departement::get();
         $users = User::with('position', 'departement')->get();
-        return view('users.edit', compact('user','positions','departements', 'title'));
+        return view('users.edit', compact('user', 'positions', 'departements', 'title'));
     }
 
     public function update(Request $request, User $User)
@@ -90,11 +107,12 @@ class UserDController extends Controller
         set_time_limit(120);
         $title = 'Laporan Data User';
         $data = User::orderBy('id', 'asc')->get();
+        $managers = User::where('position', 'manager')->get();
         $pdf = PDF::loadview('users.pdf', [
             'title' => $title,
             'data' => $data,
-            'users' => User::orderBy('id', 'asc')->get(),
-            'managers' => User::where('position', 'manager')->get(),
+            'users' => $data,
+            'managers' => $managers,
         ]);
         return $pdf->stream('laporan User');
     }

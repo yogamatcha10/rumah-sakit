@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Position;
+use App\Models\Departement;
 
 
 class User extends Authenticatable
@@ -42,13 +44,13 @@ class User extends Authenticatable
     /**
      * Get the position associated with the user.
      */
-    public function position()
+    public function positions()
     {
-        return $this->belongsTo(Position::class);
+        return $this->hasOne(Position::class, 'id', 'position');
     }
 
-    public function departement()
+    public function departements()
     {
-        return $this->belongsTo(Departement::class, 'departement');
+        return $this->hasOne(Departement::class, 'id', 'departement');
     }
 }
