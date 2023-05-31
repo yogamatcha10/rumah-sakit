@@ -6,6 +6,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\UserDController;
+use App\Http\Controllers\PasienController;
 use App\Models\Position;
 use App\Models\User;
 use App\Models\Departement;
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('positions', PositionController::class);
     Route::resource('users', UserDController::class);
     Route::resource('departements', DepartementController::class);
+    Route::resource('pasiens', PasienController::class);
     Route::get('departement/exportPdf', [
         DepartementController::class,
         'exportPdf',
@@ -64,11 +66,13 @@ Route::middleware('auth')->group(function () {
         PositionController::class,
         'exportExcel',
     ])->name('positions.exportExcel');
-    //Route::get('/pegawai', 'PegawaiController@index');
-    // Route::get('/departement/cetak_pdf', [
-    //     DepartementController::class,
-    //     'exportPdf',
-    // ])->name('exportPdf');
+    
+    // BIKIN SEARCH
+    Route::get('search/pasien', [
+        PasienController::class,
+        'autocomplete',
+    ])->name('search.pasien');
+    
 });
 Route::get('report', function () {
     $departements = App\Models\Departement::all();
