@@ -11,7 +11,6 @@ class Detail extends Model
         'no_resep',
         'id_obat',
         'qty',
-        'harga',
         'sub_total',
     ];
     public function getObat()

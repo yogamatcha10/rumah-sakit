@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
-use App\Models\User;
-use App\Models\Dokter;
-use App\Models\Detail;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -47,8 +44,8 @@ class ObatController extends Controller
         return response()->json($data);
     }
 
-    public function show(Obat $obats)
+    public function show(Obat $obat)
     {
-        return response()->json($obats);
+        return response()->json($obat);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Obat;
 use App\Models\Dokter;
 use App\Models\Detail;
 use Illuminate\Http\Request;
@@ -38,19 +37,16 @@ class DokterController extends Controller
             'nama_dokter' => $request->nama_dokter,
             'tgl_praktik' => $request->tgl_praktik,
             'spesialis' => $request->spesialis,
-            'total' => $request->total,
+            
         ];
-        $result = Dokter::create($dokter);
 
 
-        if ($result) {
+        if ($result =Dokter::create($dokter)) {
             for ($i = 1; $i <= $request->jml; $i++) {
                 $details = [
                     'no_resep' => $request->no_resep,
                     'id_obat' => $request['id_obat' . $i],
-                    'nama_obat' => $request['nama_obat' . $i],
                     'qty' => $request['qty' . $i],
-                    'harga' => $request['harga' . $i],
                     'sub_total' => $request['sub_total' . $i],
                 ];
                 Detail::create($details);
@@ -71,7 +67,6 @@ class DokterController extends Controller
         $dokter->nama_dokter = $request->nama_dokter;
         $dokter->tgl_praktik = $request->tgl_praktik;
         $dokter->spesialis = $request->spesialis;
-        $dokter->total = $request->total;
 
         if ($dokter->save()) {
             Detail::where('no_resep', $dokter->no_resep)->delete();
@@ -80,9 +75,7 @@ class DokterController extends Controller
                 $details = [
                     'no_resep' => $request->no_resep,
                     'id_obat' => $request['id_obat' . $i],
-                    'nama_obat' => $request['nama_obat' . $i],
                     'qty' => $request['qty' . $i],
-                    'harga' => $request['harga' . $i],
                     'sub_total' => $request['sub_total' . $i],
                 ];
 

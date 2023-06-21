@@ -9,8 +9,17 @@ class Dokter extends Model
 {
     protected $table = 'dokters';
 
-    protected $fillable = ['no_resep', 'nama_dokter', 'tgl_praktik', 'spesialis'];
+    protected $fillable = [
+    'no_resep', 
+    'nama_dokter', 
+    'tgl_praktik', 
+    'spesialis'
+];
 
+public function detail()
+{
+    return $this->hasMany(Detail::class, 'no_resep', 'no_resep');
+}
     public function manager()
     {
         return $this->belongsTo(User::class, 'manager_id');

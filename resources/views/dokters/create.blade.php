@@ -56,8 +56,9 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Obat</th>
-                        <th scope="col">QTY</th>
+                        <th scope="col">Jenis Obat</th>
                         <th scope="col">Harga</th>
+                        <th scope="col">QTY</th>
                         <th scope="col">Sub Total</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -66,7 +67,7 @@
 
                 </tbody>
             </table>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                 <input type="text" name="jml" class="form-control">
                 <div class="form-group">
                     <strong>Grand Total:</strong>
@@ -74,14 +75,13 @@
                     @error('tgl_praktik')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> -->
             </div>
         </div>
         <button type="submit" class="btn btn-primary mt-3 ml-3">Submit</button>
     </div>
 </form>
 @endsection
-
 @section('js')
 <script type="text/javascript">
     var path = "{{ route('search.obat') }}";
@@ -146,31 +146,17 @@
 
                 no++;
                 html += '<tr>' +
-                    '<td>' +
-                    '<input type="hidden" name="id_obat' + no + '" class="form-control" value="' + data.id +
-                    '">' +
-                    '<span>' + no + '</span>' +
-                    '</td>' +
-                    '<td>' +
-                    '<input type="text" name="nama_obat' + no + '" class="form-control" value="' +
-                    data.nama_obat + '">' + '</td>' +
-
-                    '<td>' +
-                    '<input type="number" name="harga' + no + '" class="form-control" value="' + data.harga +
-                    '">' +
-
-                    '</td>' +
+                   '<td>'+no+'<input type="hidden" name="id_obat'+no+'" class="form-control" value="'+data.id+'"></td>' +
+                    '<td><input type="text" name="nama_obat'+no+'" class="form-control" value="'+data.nama_obat+'"></td>' +
+                    '<td><input type="text" name="jenis_obat'+no+'" class="form-control" value="'+data.jenis_obat+'"></td>' +
+                    '<td><input type="text" number="harga'+no+'" class="form-control" value="'+data.harga+'"></td>' +
                     '<td>' + '<input type="number" name="qty' + no + '" class="form-control" oninput="sumQty(' +
-                    no + ',this.value)">' +
-                    '</td>' +
+                    no + ',this.value)">' + '</td>' +
                     '<td>' +
                     '<input type="number" name="sub_total' + no + '" class="form-control" >' +
                     '</td>' +
-                    '<td>' +
-                    '<a href="#" class="btn btn-sm btn-danger">X</a>' +
-                    '</td>' +
-                    '</tr>';
-
+                    '<td><a href="#" class="btn btn-sm btn-danger">X</a></td>' +
+                '</tr>';
                 $('#detail').html(html);
                 $("input[name=jml]").val(no);
                 sumTotal();

@@ -92,10 +92,7 @@ Route::middleware('auth')->group(function () {
     ])->name('positions.exportExcel');
 
     // BIKIN SEARCH
-    Route::get('search/obat', [
-        ObatController::class,
-        'autocomplete',
-    ])->name('search.obat');
+    Route::get('search/obat', [ObatController::class, 'autocomplete',])->name('search.obat');
 
     // CHART
     Route::get('chart-line', [DokterController::class, 'chartLine'])->name('dokters.chartLine');
