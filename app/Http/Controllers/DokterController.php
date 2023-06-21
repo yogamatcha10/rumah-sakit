@@ -13,14 +13,14 @@ class DokterController extends Controller
 {
     public function index()
     {
-        $title = 'Data Dokter';
+        $title = 'Data Resep';
         $dokters = Dokter::orderBy('id', 'asc')->get();
         return view('dokters.index', compact('title', 'dokters'));
     }
 
     public function create()
     {
-        $title = 'Add Data Dokter';
+        $title = 'Add Data Resep';
         $managers = User::where('position', '1')->get();
         return view('dokters.create', compact('managers', 'title'));
     }
@@ -37,11 +37,11 @@ class DokterController extends Controller
             'nama_dokter' => $request->nama_dokter,
             'tgl_praktik' => $request->tgl_praktik,
             'spesialis' => $request->spesialis,
-            
+
         ];
 
 
-        if ($result =Dokter::create($dokter)) {
+        if ($result = Dokter::create($dokter)) {
             for ($i = 1; $i <= $request->jml; $i++) {
                 $details = [
                     'no_resep' => $request->no_resep,
@@ -59,6 +59,13 @@ class DokterController extends Controller
     public function show(Dokter $dokter)
     {
         return view('dokters.show', compact('Dokter'));
+    }
+
+    public function edit($id)
+    {
+        $title = 'Edit Data Dokter';
+        $dokter = Dokter::findOrFail($id);
+        return view('dokters.edit', compact('title', 'dokter'));
     }
 
     public function update(Request $request, Dokter $dokter)
@@ -79,15 +86,22 @@ class DokterController extends Controller
                     'sub_total' => $request['sub_total' . $i],
                 ];
 
-                Detail::create($details);
+                Detail::update($details);
             }
 
             // Lakukan tindakan setelah penyimpanan berhasil (jika ada)
 
-            return redirect()->back()->with('success', 'Data dokter berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Data Resep berhasil diperbarui.');
         } else {
-            return redirect()->back()->with('error', 'Gagal memperbarui data dokter. Silakan coba lagi.');
+            return redirect()->back()->with('error', 'Gagal memperbarui data resep. Silakan coba lagi.');
         }
+    }
+    public function destroy(Dokter $dokter)
+    {
+        $dokter->delete();
+        return redirect()
+            ->route('dokters.index')
+            ->with('success', 'Resep has been deleted successfully');
     }
 
     public function chartLine()

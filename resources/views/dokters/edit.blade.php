@@ -7,7 +7,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>NO Resep:</strong>
-                <input type="text" name="no_resep" class="form-control" placeholder="NO Resep">
+                <input type="text" name="no_resep" class="form-control" value="{{ $dokter->no_resep }}"
+                    placeholder="NO Resep">
                 @error('no_resep')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
@@ -16,7 +17,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama Dokter :</strong>
-                <input type="text" name="nama_dokter" class="form-control" placeholder="Nama Dokter ">
+                <input type="text" name="nama_dokter" class="form-control" value="{{ $dokter->nama_dokter }}"
+                    placeholder="Nama Dokter ">
                 @error('nama_dokter')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
@@ -25,7 +27,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Tanggal Praktik:</strong>
-                <input type="date" name="tgl_praktik" class="form-control" placeholder="Tanggal Praktik">
+                <input type="date" name="tgl_praktik" class="form-control" value="{{ $dokter->tgl_praktik }}"
+                    placeholder="Tanggal Praktik">
                 @error('tgl_praktik')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
@@ -34,7 +37,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Spesialis:</strong>
-                <input type="text" name="spesialis" class="form-control" placeholder="Spesialis">
+                <input type="text" name="spesialis" class="form-control" value="{{ $dokter->spesialis }}"
+                    placeholder="Spesialis">
                 @error('spesialis')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror

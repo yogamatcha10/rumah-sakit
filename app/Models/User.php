@@ -12,6 +12,7 @@ use App\Models\Position;
 use App\Models\Departement;
 
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

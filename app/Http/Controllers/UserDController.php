@@ -65,7 +65,7 @@ class UserDController extends Controller
         $user = User::findOrFail($id);
         $positions = Position::get();
         $departements = Departement::get();
-        $users = User::with('position', 'departement')->get();
+        // $users = User::with('position', 'departement')->get();
         return view('users.edit', compact('user', 'positions', 'departements', 'title'));
     }
 

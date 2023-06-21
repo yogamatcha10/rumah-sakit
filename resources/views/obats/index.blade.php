@@ -11,9 +11,10 @@
     <form action="/report/generate" method="POST">
         @csrf
         <!-- <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button> -->
-        <!-- <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href=""><i class="fas fa-download fa-sm text-white-50"></i> Print</a> -->
-        <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('dokters.create') }}"><i
-                class="fa-solid fa-plus text-white-50"></i> Add Resep</a>
+        <!-- <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="/departement/exportPdf"><i
+                class="fas fa-download fa-sm text-white-50"></i> Print</a> -->
+        <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" href="{{ route('obats.create') }}"><i
+                class="fa-solid fa-plus text-white-50"></i> Add Obat</a>
     </form>
 </div>
 
@@ -21,25 +22,23 @@
     <thead>
         <tr>
             <th scope="col" class="text-center">No</th>
-            <th scope="col">Kode Resep</th>
-            <th scope="col">Nama Dokter</th>
-            <th scope="col">Tanggal Praktik</th>
-            <th scope="col">Spesialis</th>
+            <th scope="col">Nama Obat</th>
+            <th scope="col">Jenis Obat</th>
+            <th scope="col">Harga</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody class="text-center text-justify" style="line-height: 1.9 em;">
         <?php $i = 1; ?>
-        @foreach ($dokters as $item)
+        @foreach ($obats as $obat)
         <tr>
             <td>{{ $i++ }}</td>
-            <td>{{ $item->no_resep }}</td>
-            <td>{{ $item->nama_dokter }}</td>
-            <td>{{ $item->tgl_praktik }}</td>
-            <td>{{ $item->spesialis }}</td>
+            <td>{{ $obat->nama_obat }}</td>
+            <td>{{ $obat->jenis_obat }}</td>
+            <td>{{ $obat->harga }}</td>
             <td>
-                <form action="{{ route('dokters.destroy',$item->id) }}" method="Post">
-                    <a href="{{ route('dokters.edit',$item->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <form action="{{ route('obats.destroy',$obat->id) }}" method="Post">
+                    <a href="{{ route('obats.edit',$obat->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                     &nbsp;
                     @csrf
                     @method('DELETE')

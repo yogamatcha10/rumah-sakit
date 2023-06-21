@@ -36,7 +36,7 @@ Route::get('register', [UserController::class, 'register'])->name('register');
 Route::post('register', [UserController::class, 'register_action'])->name(
     'register.action'
 );
-Route::get('/', [UserController::class, 'login'])->name('login');
+Route::get('login', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'login_action'])->name(
     'login.action'
 );
@@ -54,7 +54,7 @@ Route::post('/logout', [UserController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     $totaldata = App\Models\User::count();
     $totaldataposition = App\Models\Position::count();
     $totaldatadepartement = App\Models\Departement::count();
@@ -65,7 +65,7 @@ Route::get('/dashboard', function () {
     );
 });
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         $totaldata = App\Models\User::count();
         $totaldataposition = App\Models\Position::count();
         $totaldatadepartement = App\Models\Departement::count();
