@@ -15,6 +15,11 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template-->
     <link href="{{asset('assets')}}/css/sb-admin-2.min.css" rel="stylesheet">
@@ -24,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 
 </head>
 
@@ -48,11 +53,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+
             <!-- Nav Item - Position -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('positions.index')}}">
@@ -65,17 +66,31 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>User</span></a>
             </li>
-            <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('departements.index')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Departement</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Master Data</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data-data:</h6>
+                        <a class="collapse-item" href="#">Data Dokter</a>
+                        <a class="collapse-item" href="#">Data Pasien</a>
+                        <a class="collapse-item" href="{{ route('obats.index')}}">Data Obat</a>
+                        <a class="collapse-item" href="{{ route('dokters.index')}}">Resep Obat</a>
+                    </div>
+                </div>
+            </li>
             <hr class="sidebar-divider d-none d-md-block">
             @endif
 
             @if(auth()->check())
-            <li class="nav-item">
+            <li class="nav-item" data-toggle="modal" data-target="#logoutModal">
                 <a class="nav-link" href="{{ route('logout')}}">
                     <i class="fa-solid fa-right-from-bracket fa-rotate-180"></i>
                     <span>Logout</span></a>
@@ -84,9 +99,10 @@
             <!-- Divider -->
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline" action="{{route('logout')}}">
-                <button class="rounded-circle border-0" href="{{route('logout')}}" id="sidebarToggle"></button>
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
         </ul>
         <!-- End of Sidebar -->
 
@@ -143,7 +159,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if(auth()->check())
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hai, {{auth()->user()->name}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hai,
+                                    {{auth()->user()->name}}</span>
                                 @endif
                             </a>
                             <!-- Dropdown - User Information -->
@@ -209,35 +226,74 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Pilih Logout untuk keluar dari aplikasi ini, Sampai jumpa.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Kode JavaScript -->
+    <script>
+        // Mendapatkan elemen yang ingin ditutup
+        var collapseUtilities = document.getElementById('collapseUtilities');
+        var navLink = document.querySelector('.nav-link');
 
+        // Menambahkan event listener pada elemen anchor (nav-link)
+        navLink.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah tindakan default anchor
+
+            // Memeriksa apakah elemen sudah terbuka atau tertutup
+            var isExpanded = collapseUtilities.getAttribute('aria-expanded');
+
+            // Mengubah atribut aria-expanded untuk menutup/membuka elemen
+            if (isExpanded === 'true') {
+                collapseUtilities.setAttribute('aria-expanded', 'false');
+            } else {
+                collapseUtilities.setAttribute('aria-expanded', 'true');
+            }
+        });
+    </script>
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('assets')}}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{asset('assets')}}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{asset('assets')}}/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets')}}/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{asset('assets')}}/vendor/chart.js/Chart.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('assets')}}/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('assets')}}/js/sb-admin-2.min.js"></script>
+    <script src="{{asset('assets')}}/js/app.js"></script>
+    <script src="{{asset('assets')}}/js/sb-admin-2.js"></script>
+    <script src="{{asset('assets')}}/js/bootstrap.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="{{asset('assets')}}/js/demo/chart-area-demo.js"></script>
+    <script src="{{asset('assets')}}/js/demo/chart-bar-demo.js"></script>
     <script src="{{asset('assets')}}/js/demo/chart-pie-demo.js"></script>
+    <script src="{{asset('assets')}}/js/demo/datatables-demo.js"></script>
 
     <!-- Bawaan Project -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous">
+    </script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Data Tables -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -247,9 +303,11 @@
     <!-- Search -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    
+
+
+
     @yield('js')
-    
+
 </body>
 
 </html>

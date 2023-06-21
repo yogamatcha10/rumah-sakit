@@ -6,10 +6,15 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\UserDController;
-use App\Http\Controllers\PasienController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\ObatController;
 use App\Models\Position;
 use App\Models\User;
 use App\Models\Departement;
+use App\Models\Obat;
+use App\Models\Dokter;
+use App\Models\Resep;
+use App\Models\ResepDetail;
 use Dompdf\Dompdf;
 
 //untuk mendaftarkan routes masing-masing
@@ -31,7 +36,7 @@ Route::get('register', [UserController::class, 'register'])->name('register');
 Route::post('register', [UserController::class, 'register_action'])->name(
     'register.action'
 );
-Route::get('login', [UserController::class, 'login'])->name('login');
+Route::get('/', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'login_action'])->name(
     'login.action'
 );
@@ -49,15 +54,34 @@ Route::post('/logout', [UserController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
 
+Route::get('/dashboard', function () {
+    $totaldata = App\Models\User::count();
+    $totaldataposition = App\Models\Position::count();
+    $totaldatadepartement = App\Models\Departement::count();
+    return view(
+        'dashboard',
+        ['title' => 'Dashboard'],
+        compact('totaldata', 'totaldatadepartement', 'totaldataposition')
+    );
+});
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard', ['title' => 'Dashboard']);
-    })->name('dashboard');
+    Route::get('/dashboard', function () {
+        $totaldata = App\Models\User::count();
+        $totaldataposition = App\Models\Position::count();
+        $totaldatadepartement = App\Models\Departement::count();
+        return view(
+            'dashboard',
+            ['title' => 'Dashboard'],
+            compact('totaldata', 'totaldatadepartement', 'totaldataposition')
+        );
+    })->middleware('auth');
+
 
     Route::resource('positions', PositionController::class);
     Route::resource('users', UserDController::class);
     Route::resource('departements', DepartementController::class);
-    Route::resource('pasiens', PasienController::class);
+    Route::resource('dokters', DokterController::class);
+    Route::resource('obats', ObatController::class);
     Route::get('departement/exportPdf', [
         DepartementController::class,
         'exportPdf',
@@ -66,13 +90,16 @@ Route::middleware('auth')->group(function () {
         PositionController::class,
         'exportExcel',
     ])->name('positions.exportExcel');
-    
+
     // BIKIN SEARCH
-    Route::get('search/pasien', [
-        PasienController::class,
+    Route::get('search/obat', [
+        ObatController::class,
         'autocomplete',
-    ])->name('search.pasien');
-    
+    ])->name('search.obat');
+
+    // CHART
+    Route::get('chart-line', [DokterController::class, 'chartLine'])->name('dokters.chartLine');
+    Route::get('chart-line-ajax', [DokterController::class, 'chartLineAjax'])->name('dokters.chartLineAjax');
 });
 Route::get('report', function () {
     $departements = App\Models\Departement::all();
@@ -88,15 +115,4 @@ Route::post('report/generate', function () {
     $pdf->render();
 
     return $pdf->stream('departement_report.pdf');
-});
-
-Route::get('/', function () {
-    $totaldata = App\Models\User::count();
-    $totaldataposition = App\Models\Position::count();
-    $totaldatadepartement = App\Models\Departement::count();
-    return view(
-        'dashboard',
-        ['title' => 'Dashboard'],
-        compact('totaldata', 'totaldatadepartement', 'totaldataposition')
-    );
 });

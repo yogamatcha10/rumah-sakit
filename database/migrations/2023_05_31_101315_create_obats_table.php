@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_obat')->nullable();
             $table->string('jenis_obat')->nullable();
+            $table->string('harga')->nullable();
             $table->timestamps();
         });
     }
