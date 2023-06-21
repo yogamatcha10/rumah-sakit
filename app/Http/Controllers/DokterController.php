@@ -65,7 +65,8 @@ class DokterController extends Controller
     {
         $title = 'Edit Data Dokter';
         $dokter = Dokter::findOrFail($id);
-        return view('dokters.edit', compact('title', 'dokter'));
+        $detail = Detail::where('no_resep', $dokter->no_resep)->orderBy('id', 'asc')->get();
+        return view('dokters.edit', compact('title', 'dokter', 'detail'));
     }
 
     public function update(Request $request, Dokter $dokter)
@@ -86,7 +87,7 @@ class DokterController extends Controller
                     'sub_total' => $request['sub_total' . $i],
                 ];
 
-                Detail::update($details);
+                Detail::create($details);
             }
 
             // Lakukan tindakan setelah penyimpanan berhasil (jika ada)
